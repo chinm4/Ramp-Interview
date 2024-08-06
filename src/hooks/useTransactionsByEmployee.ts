@@ -1,37 +1,46 @@
-import { useCallback, useState } from "react"
-import { RequestByEmployeeParams, Transaction, PaginatedResponse } from "../utils/types"
+import { useCallback, useState, useEffect, useRef } from "react"
+import { RequestByEmployeeParams, Transaction } from "../utils/types"
 import { TransactionsByEmployeeResult } from "./types"
 import { useCustomFetch } from "./useCustomFetch"
 
 export function useTransactionsByEmployee(): TransactionsByEmployeeResult {
   const { fetchWithCache, loading } = useCustomFetch()
-  const [transactionsByEmployee, setTransactionsByEmployee] = useState<PaginatedResponse<
-    Transaction[]
-  > | null>(null)
+  const [transactionsByEmployee, setTransactionsByEmployee] = useState<Transaction[] | null>(null)
+  const [eId, setEId] = useState('')
+  let index = useRef(0)
+  const transactionsPerScroll = 5
+
+  useEffect(() => {
+    index.current = 0
+    //console.log('passes useEffect')
+  }, [eId])
 
   const fetchById = useCallback(
-    async (employeeId: string) => {
-      const resp = await fetchWithCache<PaginatedResponse<Transaction[]>, RequestByEmployeeParams>(
+    async (employeeId: string, viewMore: boolean, reset: boolean) => {
+      const data = await fetchWithCache<Transaction[], RequestByEmployeeParams>(
         "transactionsByEmployee",
         {
-          page: transactionsByEmployee === null ? 0 : transactionsByEmployee.nextPage,
           employeeId,
         }
       )
-      console.log(employeeId)
-      setTransactionsByEmployee((previousResponse) => {
-        console.log('runs', previousResponse?.data, previousResponse?.nextPage)
-        console.log(resp?.data, resp?.nextPage)
-        if (resp === null || previousResponse === null) {
-          return resp
-        }
-        for (let i = 0; i < resp.data.length; i++) {
-          previousResponse.data.push(resp.data[i])
-        }
-        return { data: previousResponse.data, nextPage: resp.nextPage}
-      })
+      setEId(employeeId)
+      if (reset === true) {
+        index.current = 0
+      }
+      if (viewMore === true) {
+        //console.log('view more is true')
+        index.current += transactionsPerScroll
+      }
+
+      if (data === null) {
+        return 
+      }
+      //console.log(index)
+      setTransactionsByEmployee(data.slice(0, index.current+transactionsPerScroll))
+
+      
     },
-    [fetchWithCache, transactionsByEmployee]
+    [fetchWithCache]
   )
 
   const invalidateData = useCallback(() => {

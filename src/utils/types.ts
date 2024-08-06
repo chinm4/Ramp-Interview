@@ -23,7 +23,6 @@ export type PaginatedRequestParams = {
 }
 
 export type RequestByEmployeeParams = {
-  page: number | null
   employeeId: string
 }
 

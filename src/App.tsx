@@ -31,14 +31,14 @@ export function App() {
   }, [employeeUtils, paginatedTransactionsUtils, transactionsByEmployeeUtils])
 
   const loadTransactionsByEmployee = useCallback(
-    async (employeeId: string) => {
+    async (employeeId: string, viewMore=false, reset=false) => {
       paginatedTransactionsUtils.invalidateData()
       transactionsByEmployeeUtils.invalidateData() //when changing off this filter
       
       await employeeUtils.fetchAll()
 
       //await employeeUtils.fetchAll()
-      await transactionsByEmployeeUtils.fetchById(employeeId)
+      await transactionsByEmployeeUtils.fetchById(employeeId, viewMore, reset)
 
     },
     [employeeUtils, paginatedTransactionsUtils, transactionsByEmployeeUtils]
@@ -75,8 +75,12 @@ export function App() {
               setNewId('')
               await loadAllTransactions()
             } else {
+              let reset
+              if (newId === '') {
+                reset = true
+              }
               setNewId(newValue.id)
-              await loadTransactionsByEmployee(newValue.id)
+              await loadTransactionsByEmployee(newValue.id, false, reset)
             }
           }}
         />
@@ -94,7 +98,7 @@ export function App() {
                 if (newId === '')
                   await loadAllTransactions()
                 else
-                  await loadTransactionsByEmployee(newId)
+                  await loadTransactionsByEmployee(newId, true)
               }}
             >
               View More
