@@ -18,6 +18,12 @@ export type PaginatedResponse<TData> = {
   nextPage: number | null
 }
 
+export type TransactEmployeeResponse<TData> = {
+  data: TData
+  index: number 
+  length: number
+}
+
 export type PaginatedRequestParams = {
   page: number | null
 }

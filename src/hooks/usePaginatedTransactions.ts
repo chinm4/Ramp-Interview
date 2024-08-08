@@ -28,6 +28,7 @@ export function usePaginatedTransactions(): PaginatedTransactionsResult {
       for (let i = 0; i < response.data.length; i++) {
         previousResponse.data.push(response.data[i])
       }
+      //console.log(paginatedTransactions?.nextPage)
       return { data: previousResponse.data, nextPage: response.nextPage }
     })
   }, [fetchWithCache, paginatedTransactions])

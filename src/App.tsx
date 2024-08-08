@@ -16,7 +16,7 @@ export function App() {
   const [newId, setNewId] = useState('')
 
   const transactions = useMemo(
-    () => paginatedTransactions?.data ?? transactionsByEmployee ?? null,
+    () => paginatedTransactions?.data ?? transactionsByEmployee?.data ?? null,
     [paginatedTransactions, transactionsByEmployee]
   )
 
@@ -90,7 +90,7 @@ export function App() {
         <div className="RampGrid">
           <Transactions transactions={transactions} />
 
-          {transactions !== null && (
+          {transactions !== null && paginatedTransactions?.nextPage !== null && ( transactionsByEmployee === null || transactionsByEmployee.index + 5 < transactionsByEmployee.length ) && (
             <button
               className="RampButton"
               disabled={paginatedTransactionsUtils.loading}

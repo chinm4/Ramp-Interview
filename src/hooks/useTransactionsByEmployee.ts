@@ -1,13 +1,13 @@
 import { useCallback, useState, useEffect, useRef } from "react"
-import { RequestByEmployeeParams, Transaction } from "../utils/types"
+import { RequestByEmployeeParams, Transaction, TransactEmployeeResponse } from "../utils/types"
 import { TransactionsByEmployeeResult } from "./types"
 import { useCustomFetch } from "./useCustomFetch"
 
 export function useTransactionsByEmployee(): TransactionsByEmployeeResult {
   const { fetchWithCache, loading } = useCustomFetch()
-  const [transactionsByEmployee, setTransactionsByEmployee] = useState<Transaction[] | null>(null)
+  const [transactionsByEmployee, setTransactionsByEmployee] = useState<TransactEmployeeResponse<Transaction[]> | null>(null)
   const [eId, setEId] = useState('')
-  let index = useRef(0)
+  let index = useRef<number>(0)
   const transactionsPerScroll = 5
 
   useEffect(() => {
@@ -23,22 +23,22 @@ export function useTransactionsByEmployee(): TransactionsByEmployeeResult {
           employeeId,
         }
       )
-      setEId(employeeId)
-      if (reset === true) {
-        index.current = 0
-      }
-      if (viewMore === true) {
-        //console.log('view more is true')
-        index.current += transactionsPerScroll
-      }
-
       if (data === null) {
         return 
       }
-      //console.log(index)
-      setTransactionsByEmployee(data.slice(0, index.current+transactionsPerScroll))
+      setEId(employeeId)
+      if (reset === true) {
+        index.current = 0
+      } else if (viewMore === true) {
+        //console.log('view more is true')
+        index.current += transactionsPerScroll
+      }
+      //console.log(data.slice(0, index.current+transactionsPerScroll))
+      console.log(index)
+      setTransactionsByEmployee(() => {
+        return { data: data.slice(0, index.current+transactionsPerScroll), index: index.current, length: data.length }
+      })
 
-      
     },
     [fetchWithCache]
   )
