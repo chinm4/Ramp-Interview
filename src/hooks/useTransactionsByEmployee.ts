@@ -12,7 +12,7 @@ export function useTransactionsByEmployee(): TransactionsByEmployeeResult {
 
   useEffect(() => {
     index.current = 0
-    //console.log('passes useEffect')
+    console.log('passes useEffect')
   }, [eId])
 
   const fetchById = useCallback(
@@ -30,12 +30,13 @@ export function useTransactionsByEmployee(): TransactionsByEmployeeResult {
       setEId(employeeId)
       if (reset === true) {
         index.current = 0
+        //console.log("set index to 0")
       } else if (viewMore === true) {
         //console.log('view more is true')
         index.current += transactionsPerScroll
       }
       //console.log(data.slice(0, index.current+transactionsPerScroll))
-      console.log(index)
+      //console.log(index)
       setTransactionsByEmployee(() => {
         return { data: data.slice(0, index.current+transactionsPerScroll), index: index.current, length: data.length }
       })

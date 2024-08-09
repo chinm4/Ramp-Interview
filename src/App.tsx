@@ -75,12 +75,8 @@ export function App() {
               setNewId('')
               await loadAllTransactions()
             } else {
-              let reset
-              if (newId === '') {
-                reset = true
-              }
               setNewId(newValue.id)
-              await loadTransactionsByEmployee(newValue.id, false, reset)
+              await loadTransactionsByEmployee(newValue.id, false, true)
             }
           }}
         />

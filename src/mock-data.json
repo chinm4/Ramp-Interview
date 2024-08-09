@@ -315,6 +315,122 @@
       "merchant": "test3",
       "date": "8/1/2022",
       "approved": true
+    }, {
+      "id": "d1a767b7-5e56-4df6-8a2a-43f56de9404e",
+      "amount": 125.50,
+      "employee": {
+        "id": "89bd9324-04e0-4cd6-aa27-981508bd219f",
+        "firstName": "James",
+        "lastName": "Smith",
+        "extras": 2
+      },
+      "merchant": "Coffee House",
+      "date": "8/7/2022",
+      "approved": true
+    },
+    {
+      "id": "a2b6c3d9-82ab-4c61-93c9-732c91998d74",
+      "amount": 320.00,
+      "employee": {
+        "id": "7eeba422-5717-4026-8e74-e517576e26bd",
+        "firstName": "Mary",
+        "lastName": "Miller",
+        "extras": 1
+      },
+      "merchant": "Tech Store",
+      "date": "8/8/2022",
+      "approved": false
+    },
+    {
+      "id": "f3b8c741-1e8d-4c56-bb67-fbb2bcbda97f",
+      "amount": 210.75,
+      "employee": {
+        "id": "6e88529c-6739-4f1b-bea0-02afdd336bb3",
+        "firstName": "Linda",
+        "lastName": "Jones",
+        "extras": 3
+      },
+      "merchant": "Bookstore",
+      "date": "8/8/2022",
+      "approved": true
+    },
+    {
+      "id": "5df8b7e5-6ec3-48d9-b885-f537bc2e9b18",
+      "amount": 470.89,
+      "employee": {
+        "id": "89bd9324-04e0-4cd6-aa27-981508bd219f",
+        "firstName": "James",
+        "lastName": "Smith",
+        "extras": 2
+      },
+      "merchant": "Electronics Hub",
+      "date": "8/9/2022",
+      "approved": false
+    },
+    {
+      "id": "7b9c4d5f-4a9f-41b2-b85d-8fbb5299b9b4",
+      "amount": 150.25,
+      "employee": {
+        "id": "7eeba422-5717-4026-8e74-e517576e26bd",
+        "firstName": "Mary",
+        "lastName": "Miller",
+        "extras": 1
+      },
+      "merchant": "Gourmet Grocery",
+      "date": "8/9/2022",
+      "approved": true
+    },
+    {
+      "id": "d3a7f6b2-0dcb-4b81-a745-30c889e6b5b6",
+      "amount": 60.75,
+      "employee": {
+        "id": "6e88529c-6739-4f1b-bea0-02afdd336bb3",
+        "firstName": "Linda",
+        "lastName": "Jones",
+        "extras": 3
+      },
+      "merchant": "Sports Store",
+      "date": "8/9/2022",
+      "approved": true
+    },
+    {
+      "id": "f4c5a28f-6d8c-499b-a9c4-290b8964fa2e",
+      "amount": 85.99,
+      "employee": {
+        "id": "89bd9324-04e0-4cd6-aa27-981508bd219f",
+        "firstName": "James",
+        "lastName": "Smith",
+        "extras": 2
+      },
+      "merchant": "Local Bakery",
+      "date": "8/10/2022",
+      "approved": true
+    },
+    {
+      "id": "1e6c3d4f-5b8c-4a7f-9d7b-5c63e417b6b9",
+      "amount": 500.50,
+      "employee": {
+        "id": "7eeba422-5717-4026-8e74-e517576e26bd",
+        "firstName": "Mary",
+        "lastName": "Miller",
+        "extras": 1
+      },
+      "merchant": "Luxury Spa",
+      "date": "8/10/2022",
+      "approved": false
+    },
+    {
+      "id": "8f9b7c4e-6d1f-4a8b-b4a5-e5a7f6d8c9b3",
+      "amount": 75.49,
+      "employee": {
+        "id": "6e88529c-6739-4f1b-bea0-02afdd336bb3",
+        "firstName": "Linda",
+        "lastName": "Jones",
+        "extras": 3
+      },
+      "merchant": "Pet Supplies",
+      "date": "8/10/2022",
+      "approved": true
     }
   ]
 }
