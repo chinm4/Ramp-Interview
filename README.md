@@ -246,6 +246,8 @@ _This bug has 2 wrong behaviors that can be fixed with the same solution. It's a
 
 **Actual:** When you reach the end of the data, the **View More** button is still showing and you are still able to click the button. If you click it, the page crashes.
 
+  - For the All Employee filter page I added to app.tsx paginatedTransactions?.nextPage !== null which means if the next page isnt null we can display it and allow the users to see the view more button and if the next page is null theres nothing more to be seen and the conditional returns false so you cannot see the view more button. For the filter by employees page its a little different because we have to utilize the current index and the length of the data for the employee id. So to be able to call both the index and the length I created a new type TransactEmployeeResponse<TData> so we can get that data and using this we can add the index by 5 which gives the amount to be shown if view more is clicked and if it is less than the length than we can display it. I also found a problem where the All employees wasnt displaying at the first instance because the filter was never clicked and therefore was null so I added it if its null then it will ignore the index so that All employees can display the view more. ( transactionsByEmployee === null || transactionsByEmployee.index + 5 < transactionsByEmployee.length )
+
 # Bug 7: Approving a transaction won't persist the new value
 
 _You need to fix some of the previous bugs in order to reproduce_

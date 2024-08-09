@@ -23,6 +23,7 @@ export function useTransactionsByEmployee(): TransactionsByEmployeeResult {
           employeeId,
         }
       )
+      //console.log(data)
       if (data === null) {
         return 
       }

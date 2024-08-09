@@ -13,6 +13,7 @@ export const Transactions: TransactionsComponent = ({ transactions }) => {
         transactionId,
         value: newValue,
       })
+      console.log(transactionId, ':', newValue)
     },
     [fetchWithoutCache]
   )
