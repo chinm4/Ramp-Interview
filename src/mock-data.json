@@ -198,7 +198,7 @@
       "merchant": "Tasty Restaurant",
       "date": "8/3/2022",
       "approved": false
-    }, 
+    },
     {
       "id": "1",
       "amount": 30.36,
@@ -237,7 +237,7 @@
       "merchant": "test3",
       "date": "8/1/2022",
       "approved": true
-    }, 
+    },
     {
       "id": "4",
       "amount": 30.36,
@@ -276,7 +276,7 @@
       "merchant": "test3",
       "date": "8/1/2022",
       "approved": true
-    }, 
+    },
     {
       "id": "7",
       "amount": 30.36,
@@ -315,9 +315,10 @@
       "merchant": "test3",
       "date": "8/1/2022",
       "approved": true
-    }, {
+    },
+    {
       "id": "d1a767b7-5e56-4df6-8a2a-43f56de9404e",
-      "amount": 125.50,
+      "amount": 125.5,
       "employee": {
         "id": "89bd9324-04e0-4cd6-aa27-981508bd219f",
         "firstName": "James",
@@ -330,7 +331,7 @@
     },
     {
       "id": "a2b6c3d9-82ab-4c61-93c9-732c91998d74",
-      "amount": 320.00,
+      "amount": 320.0,
       "employee": {
         "id": "7eeba422-5717-4026-8e74-e517576e26bd",
         "firstName": "Mary",
@@ -408,7 +409,7 @@
     },
     {
       "id": "1e6c3d4f-5b8c-4a7f-9d7b-5c63e417b6b9",
-      "amount": 500.50,
+      "amount": 500.5,
       "employee": {
         "id": "7eeba422-5717-4026-8e74-e517576e26bd",
         "firstName": "Mary",

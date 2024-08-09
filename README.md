@@ -80,14 +80,14 @@ We don't have a real API for this challenge, so we added some utilities to simul
 
 **Actual:** Options dropdown stays in the same position as you scroll the page, losing the reference to the select input
 
-  - I was able to fix this bug from looking at the dev tools in my browser and 
-  analyzing the css properties that were being applied to the {...getMenuProps()} 
-  elements which is this <div> in the Elements tab "<div 
-  class="RampInputSelect--dropdown-container" role="listbox 
-  aria-labelledby="RampSelect-label" id="RampSelect-menu" 
-  style="top: 344px; left: 601.5px; position: absolute;"></div>". I found that 
-  the RampInputSelect--dropdown-container css element had the attribute position: 
-  fixed; active and was making the dropdown menu stay in the same position as you 
+- I was able to fix this bug from looking at the dev tools in my browser and
+  analyzing the css properties that were being applied to the {...getMenuProps()}
+  elements which is this <div> in the Elements tab "<div
+  class="RampInputSelect--dropdown-container" role="listbox
+  aria-labelledby="RampSelect-label" id="RampSelect-menu"
+  style="top: 344px; left: 601.5px; position: absolute;"></div>". I found that
+  the RampInputSelect--dropdown-container css element had the attribute position:
+  fixed; active and was making the dropdown menu stay in the same position as you
   scroll down the page.
 
 # Bug 2: Approve checkbox not working
@@ -100,12 +100,12 @@ We don't have a real API for this challenge, so we added some utilities to simul
 
 **Actual:** Nothing happens
 
-  - to solve this bug I first started off with the dev tools and locating where 
-  the <input> was and how it was working. I then started testing to see what 
-  effects the input checkbox and found that this 
-  "RampInputCheckbox--label-checked": checked, is supposed to change depending on 
-  if checked is true or false. but the label wasn't seeing the onChange because it 
-  was not linked to the input. So with a simple htmlFor={inputId} we 
+- to solve this bug I first started off with the dev tools and locating where
+  the <input> was and how it was working. I then started testing to see what
+  effects the input checkbox and found that this
+  "RampInputCheckbox--label-checked": checked, is supposed to change depending on
+  if checked is true or false. but the label wasn't seeing the onChange because it
+  was not linked to the input. So with a simple htmlFor={inputId} we
   are referencing that certain inputId and changing its checked boolean value.
 
 # Bug 3: Cannot select _All Employees_ after selecting an employee
@@ -121,17 +121,17 @@ We don't have a real API for this challenge, so we added some utilities to simul
 
 **Actual:** The page crashes
 
-  - I solved this bug by first going back to the input select file and trying to 
-  identify when the id === '' which I found by tracing the onChange function when 
-  it changes selectedItem. This object is stored in a state which is used 
-  in the main or app.tsx to display the transactions under onChange. I found that 
-  there were two key functions here one when it is first loaded to the page it 
-  utilizes the useEffect to loadAllTransactions and another when it awaits 
-  the newValue onChange and uses loadTransactionByEmployee. So as I understood it, 
-  the bug was here because if I click back onChange to all employees then it would 
-  call loadTransactionsByEmployee but really I need loadAllTransactions so adding 
-  a simple conditional if (newValue.id === '') then loadAllTransactions works 
-  here. 
+- I solved this bug by first going back to the input select file and trying to
+  identify when the id === '' which I found by tracing the onChange function when
+  it changes selectedItem. This object is stored in a state which is used
+  in the main or app.tsx to display the transactions under onChange. I found that
+  there were two key functions here one when it is first loaded to the page it
+  utilizes the useEffect to loadAllTransactions and another when it awaits
+  the newValue onChange and uses loadTransactionByEmployee. So as I understood it,
+  the bug was here because if I click back onChange to all employees then it would
+  call loadTransactionsByEmployee but really I need loadAllTransactions so adding
+  a simple conditional if (newValue.id === '') then loadAllTransactions works
+  here.
 
 # Bug 4: Clicking on View More button not showing correct data
 
@@ -144,33 +144,33 @@ We don't have a real API for this challenge, so we added some utilities to simul
 
 **Actual:** New transactions replace initial transactions, losing initial transactions
 
-  -To solve this bug I first needed to analyze how the "View More" button worked 
-  and what was being called when 
-  onClick of the button which was the LoadAllTransactions() function. (Note: I've 
-  also implemented loadTransactionsByEmployee() for when we are filtering by a 
-  certain employee because it makes more sense. I did 
-  this by implementing a state where we store the updated filtered id and 
-  depending on if we filter or not we can load all employee data or a specific 
-  employee data). So we then look at the LoadAllTransactions() function and 
-  see which one is fetching data from the Transaction[] which is the 
-  usePaginatedTransactions(). Now navigating to the usePaginatedTransactions.ts 
-  file we see through console.log() tests that in the setPaginatedTransactions() 
-  we have the previousResponse.data which contains the object data for what is 
-  displayed already and the response.data which contains the next data to be 
-  displayed. The bug comes from only returning the response.data instead of the 
-  combined previousResponse.data and response.data objects. So I implemented 
-  combing these two objects and their data and returning that with the updated 
-  page number. (Also did this for the useTransactionsByEmployee.ts for employee 
-  filtering view more by adding paginated to the fetchWithCache and utilizing the 
-  PaginatedResponse I'm able to keep the previous response from a certain person 
-  and if they have more transactions it will add to the data and siplay 
-  it like for usePaginatedTransactions file. Adding this makes the application 
-  make a lot more sense because in a larger scale application if we filter by a 
-  specific employee we want to see all their transaction history while if 
-  we just add it for loadAllTransactions it wouldnt make sense to filter and then 
-  once we view more see a bunch of other people. Hence I made this change in 
-  addition to the bug fix. TO VIEW THESE CHANGES I ADDED MORE MOCK DATA TO JAMES 
-  SMITH SO FILTER TO HIM AND CLICK VIEW MORE).
+-To solve this bug I first needed to analyze how the "View More" button worked
+and what was being called when
+onClick of the button which was the LoadAllTransactions() function. (Note: I've
+also implemented loadTransactionsByEmployee() for when we are filtering by a
+certain employee because it makes more sense. I did
+this by implementing a state where we store the updated filtered id and
+depending on if we filter or not we can load all employee data or a specific
+employee data). So we then look at the LoadAllTransactions() function and
+see which one is fetching data from the Transaction[] which is the
+usePaginatedTransactions(). Now navigating to the usePaginatedTransactions.ts
+file we see through console.log() tests that in the setPaginatedTransactions()
+we have the previousResponse.data which contains the object data for what is
+displayed already and the response.data which contains the next data to be
+displayed. The bug comes from only returning the response.data instead of the
+combined previousResponse.data and response.data objects. So I implemented
+combing these two objects and their data and returning that with the updated
+page number. (Also did this for the useTransactionsByEmployee.ts for employee
+filtering view more by adding paginated to the fetchWithCache and utilizing the
+PaginatedResponse I'm able to keep the previous response from a certain person
+and if they have more transactions it will add to the data and siplay
+it like for usePaginatedTransactions file. Adding this makes the application
+make a lot more sense because in a larger scale application if we filter by a
+specific employee we want to see all their transaction history while if
+we just add it for loadAllTransactions it wouldnt make sense to filter and then
+once we view more see a bunch of other people. Hence I made this change in
+addition to the bug fix. TO VIEW THESE CHANGES I ADDED MORE MOCK DATA TO JAMES
+SMITH SO FILTER TO HIM AND CLICK VIEW MORE).
 
 # Bug 5: Employees filter not available during loading more data
 
@@ -188,8 +188,8 @@ _This bug has 2 wrong behaviors that will be fixed with the same solution_
 
 **Actual:** The filter stops showing "Loading employees.." until `paginatedTransactions` is succeeded
 
-  -Simple bug which is fixed by moving the setIsLoading(false) to be called right 
-  after the await employeeUtils.fetchAll() call is made.
+-Simple bug which is fixed by moving the setIsLoading(false) to be called right
+after the await employeeUtils.fetchAll() call is made.
 
 ##### Part 2
 
@@ -203,7 +203,7 @@ _This bug has 2 wrong behaviors that will be fixed with the same solution_
 
 **Actual:** The employees filter shows "Loading employees..." after clicking **View more** until new transactions are loaded.
 
-  - I did not have this issue in my code when clicking view more then quickly 
+- I did not have this issue in my code when clicking view more then quickly
   clicking filter employees. It opened without "Loading employees..." being shown.
 
 # Bug 6: View more button not working as expected
@@ -222,16 +222,16 @@ _This bug has 2 wrong behaviors that can be fixed with the same solution. It's a
 
 **Actual:** The **View more** button is visible even when transactions are filtered by employee. _You can even click **View more** button and get an unexpected result_
 
-  - I chose from a stylistic standpoint to keep the view more button as it makes 
-  more sense to keep the same format as in the All Employees tab and modified the 
-  useTransactionsByEmployee.ts file to allow us to navigate a certain employees 
-  transactions. 
-  
-  - But if I was to do it, I would check my newValue.id which I stored in useState 
-  as const[newId, setNewId] and see if newId === '' if it is then we can display 
-  the view more button since we know we are at All Employees tab but if newId has 
-  a value, then we are on a filter so we dont display it. Essentially it would 
-  look like this {transactions !== null && newId === '' && (... display the view 
+- I chose from a stylistic standpoint to keep the view more button as it makes
+  more sense to keep the same format as in the All Employees tab and modified the
+  useTransactionsByEmployee.ts file to allow us to navigate a certain employees
+  transactions.
+
+- But if I was to do it, I would check my newValue.id which I stored in useState
+  as const[newId, setNewId] and see if newId === '' if it is then we can display
+  the view more button since we know we are at All Employees tab but if newId has
+  a value, then we are on a filter so we dont display it. Essentially it would
+  look like this {transactions !== null && newId === '' && (... display the view
   more button
 
 ##### Part 2
@@ -246,19 +246,19 @@ _This bug has 2 wrong behaviors that can be fixed with the same solution. It's a
 
 **Actual:** When you reach the end of the data, the **View More** button is still showing and you are still able to click the button. If you click it, the page crashes.
 
-  - For the All Employee filter page I added to app.tsx paginatedTransactions?.nextPage 
-  !== null which means if the next page isnt null we can display it and allow the users 
-  to see the view more button and if the next page is null theres nothing more to be 
-  seen and the conditional returns false so you cannot see the view more button. For 
-  the filter by employees page its a little different because we have to utilize the 
-  current index and the length of the data for the employee id. So to be able to call 
-  both the index and the length I created a new type TransactEmployeeResponse<TData> so 
-  we can get that data and using this we can add the index by 5 which gives the amount 
-  to be shown if view more is clicked and if it is less than the length than we can 
-  display it. I also found a problem where the All employees wasnt displaying at the 
-  first instance because the filter was never clicked and therefore was null so I added 
-  it if its null then it will ignore the index so that All employees can display the 
-  view more. ( transactionsByEmployee === null || transactionsByEmployee.index + 5 < 
+- For the All Employee filter page I added to app.tsx paginatedTransactions?.nextPage
+  !== null which means if the next page isnt null we can display it and allow the users
+  to see the view more button and if the next page is null theres nothing more to be
+  seen and the conditional returns false so you cannot see the view more button. For
+  the filter by employees page its a little different because we have to utilize the
+  current index and the length of the data for the employee id. So to be able to call
+  both the index and the length I created a new type TransactEmployeeResponse<TData> so
+  we can get that data and using this we can add the index by 5 which gives the amount
+  to be shown if view more is clicked and if it is less than the length than we can
+  display it. I also found a problem where the All employees wasnt displaying at the
+  first instance because the filter was never clicked and therefore was null so I added
+  it if its null then it will ignore the index so that All employees can display the
+  view more. ( transactionsByEmployee === null || transactionsByEmployee.index + 5 <
   transactionsByEmployee.length )
 
 # Bug 7: Approving a transaction won't persist the new value
@@ -280,21 +280,21 @@ _You need to fix some of the previous bugs in order to reproduce_
 
 **Actual:** In steps 6 and 8, toggled transaction lost the value given in step 2. _(E.g. Social Media Ads Inc is checked again)_
 
-  - The way I solved this bug was by first tracking where input checkbox updates 
-  the approved. So first it starts at the checkbox itself which chancges the 
-  checked value and passes the value through onChange back to TransactionPane 
-  file which awaits consumerSetTransactionApproval using the transaction.id, and 
-  the newValue boolean. Which gets passed to the index.tsx Transactions file 
-  where it setTransactionApproval by using fetchWithoutCache. Here I realized 
-  that when I was testing it was only updating the change made on the first 
-  instance of All Employees and after that whenever you made a change it never 
-  saved to the filters and All Employees always resets back to original when you 
-  change filters. So, I looked at the useCustomFetch to see what fetch wihtout 
-  cache was doing under the hood and I realized the problem was with the cache 
-  because never actually fetches without the cache and the cache is never 
-  cleared. So I added clearCacheByEndpoint(['paginatedTransactions', 
-  'transactionsByEmployee']) which at each checkbox update it will clear the 
-  cache so that on the next load of each transaction it can read the updated 
+- The way I solved this bug was by first tracking where input checkbox updates
+  the approved. So first it starts at the checkbox itself which chancges the
+  checked value and passes the value through onChange back to TransactionPane
+  file which awaits consumerSetTransactionApproval using the transaction.id, and
+  the newValue boolean. Which gets passed to the index.tsx Transactions file
+  where it setTransactionApproval by using fetchWithoutCache. Here I realized
+  that when I was testing it was only updating the change made on the first
+  instance of All Employees and after that whenever you made a change it never
+  saved to the filters and All Employees always resets back to original when you
+  change filters. So, I looked at the useCustomFetch to see what fetch wihtout
+  cache was doing under the hood and I realized the problem was with the cache
+  because never actually fetches without the cache and the cache is never
+  cleared. So I added clearCacheByEndpoint(['paginatedTransactions',
+  'transactionsByEmployee']) which at each checkbox update it will clear the
+  cache so that on the next load of each transaction it can read the updated
   value instead of the prior calue from the cache.
 
 ## Submission

@@ -1,3 +1,5 @@
-import { FunctionComponent, PropsWithChildren } from "react"
+import { FunctionComponent, PropsWithChildren } from "react";
 
-export type AppContextProviderComponent = FunctionComponent<PropsWithChildren<unknown>>
+export type AppContextProviderComponent = FunctionComponent<
+  PropsWithChildren<unknown>
+>;
